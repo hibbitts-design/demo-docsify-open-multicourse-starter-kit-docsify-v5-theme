@@ -406,6 +406,22 @@ body:has(.markdown-section:empty) :is(aside.sidebar, button.sidebar-toggle) {
     opacity: 0;
 }
 
+/* A bold first line in a sidebar (for example **Guide Name** or **Course Name** at the top of a _sidebar.md)
+   is a little larger, so it reads as a label for the list and stands apart from the bold current page.
+   Linked to the guide's home ([**Guide Name**](guide/README.md)), it looks the same, underlined only on hover or
+   keyboard focus */
+.sidebar-nav > p:first-child > strong:only-child,
+.sidebar-nav > p:first-child > a:only-child > strong:only-child {
+  font-size: 1.1em;
+}
+.sidebar-nav > p:first-child > a:only-child {
+  color: inherit;
+  text-decoration: none;
+}
+.sidebar-nav > p:first-child > a:only-child:is(:hover, :focus-visible) {
+  text-decoration: underline;
+}
+
 .markdown-section .banner-image {
   width: 100%;
   height: 125px;
@@ -1271,4 +1287,24 @@ body:has(.markdown-section > style) .app-nav li:has(> a.site-title) {
 .markdown-section .keep-my-place-close:focus-visible {
   outline: 2px solid var(--theme-color);
   outline-offset: 2px;
+}
+
+/* Glossary terms, as in Grav: a link to a Glossary page (or to an entry on it, ?id=) with the definition as its
+   title. Text colour, dotted underline (solid on hover) */
+.markdown-section a[title]:is([href$="/glossary"], [href*="/glossary?id="]) {
+  color: inherit;
+  text-decoration: underline dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  cursor: help;
+}
+
+.markdown-section a[title]:is([href$="/glossary"], [href*="/glossary?id="]):hover {
+  text-decoration-style: solid;
+}
+
+@media print {
+  .markdown-section a[title]:is([href$="/glossary"], [href*="/glossary?id="]) {
+    text-decoration: none;
+  }
 }
